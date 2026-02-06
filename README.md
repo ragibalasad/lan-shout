@@ -1,4 +1,4 @@
-# 🌐 LAN Message Tool
+# 📣 LAN-Shout
 
 A powerful, lightweight Python tool to send and receive messages across your Local Area Network (LAN). It supports direct messaging via TCP and network-wide broadcasting via UDP, with instant desktop notifications.
 
