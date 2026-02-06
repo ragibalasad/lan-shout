@@ -7,6 +7,7 @@ DEFAULT_PORT = 9999
 def start_udp_listener():
     """Starts a UDP listener to receive broadcast messages."""
     udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    udp_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     try:
         udp_socket.bind(('', DEFAULT_PORT))
         print(f"UDP Listener started on port {DEFAULT_PORT}...")

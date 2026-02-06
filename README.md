@@ -11,8 +11,8 @@ Follow these steps to get the `msg` command working on your machine.
 ### 1. Download the Project
 Clone this repository or download the source code to your machine:
 ```bash
-git clone <your-repo-url>
-cd msg-lan-tool
+git clone https://github.com/ragibalasad/lan-shout.git
+cd lan-shout
 ```
 
 ### 2. Make the `msg` Command Available System-wide
