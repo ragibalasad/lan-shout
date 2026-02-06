@@ -20,8 +20,6 @@ def broadcast_message(message):
             s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
             # Send to global broadcast
             s.sendto(message.encode('utf-8'), ('255.255.255.255', DEFAULT_PORT))
-            # Also send to localhost to ensure the local listener picks it up
-            s.sendto(message.encode('utf-8'), ('127.0.0.1', DEFAULT_PORT))
-            print("Broadcast message sent to everyone (including you).")
+            print("Broadcast message sent to everyone on the LAN.")
     except Exception as e:
         print(f"Error broadcasting message: {e}")
