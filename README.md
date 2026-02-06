@@ -40,8 +40,9 @@ The tool operates in two modes: **Listening** (to receive) and **Sending** (to t
 ### 1. Start Listening (Must be running to receive messages)
 Run this command to start the background server. It will listen for both direct and broadcast messages.
 ```bash
-msg listen
+msg --listen
 ```
+*   You can also use the short version: `msg -l`
 *   It will display your **Local IP Address**. Share this with others so they can message you directly.
 *   Keep this terminal window open.
 

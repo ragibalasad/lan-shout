@@ -26,38 +26,39 @@ def get_local_ip():
         return "127.0.0.1"
 
 def main():
-    parser = argparse.ArgumentParser(description="LAN Message Tool")
-    subparsers = parser.add_subparsers(dest="command")
+    parser = argparse.ArgumentParser(description="LAN-Shout: CLI tool for instant messaging across a LAN")
+    parser.add_argument("-l", "--listen", action="store_true", help="Start the listener to receive messages")
+    parser.add_argument("target", nargs="?", help="IP address or first word of the message")
+    parser.add_argument("message_parts", nargs="*", help="Remaining parts of the message")
 
-    # Listen command
-    listen_parser = subparsers.add_parser("listen", help="Start the listener to receive messages")
+    args = parser.parse_args()
 
-    # Send command logic (default if not 'listen')
-    # If the user just runs `msg <ip> <msg>`, we handle it.
-    
-    if len(sys.argv) > 1 and sys.argv[1] == "listen":
+    if args.listen:
         local_ip = get_local_ip()
-        print(f"Starting LAN Message Listener on {local_ip}...")
+        print(f"Starting LAN-Shout Listener on {local_ip}...")
         print(f"Your IP address is: {local_ip}")
         start_listening()
-    elif len(sys.argv) >= 2:
-        # Check if sys.argv[1] is an IP
-        if is_valid_ip(sys.argv[1]):
-            if len(sys.argv) >= 3:
-                ip = sys.argv[1]
-                message = " ".join(sys.argv[2:])
+        return
+
+    if args.target:
+        # Check if first positional arg is an IP
+        if is_valid_ip(args.target):
+            if args.message_parts:
+                ip = args.target
+                message = " ".join(args.message_parts)
                 send_message(ip, message)
             else:
                 print("Error: Message required when specifying an IP.")
         else:
             # Not an IP, treat everything as a broadcast message
-            message = " ".join(sys.argv[1:])
-            broadcast_message(message)
+            message = args.target + " " + " ".join(args.message_parts) if args.message_parts else args.target
+            broadcast_message(message.strip())
     else:
-        print("Usage:")
-        print("  To listen:        msg listen")
-        print("  Send to IP:       msg <ip> <message>")
-        print("  Broadcast all:    msg <message>")
+        parser.print_help()
+        print("\nExamples:")
+        print("  msg --listen             # Start listening")
+        print("  msg 192.168.1.5 Hello    # Send to specific IP")
+        print("  msg Hello everyone       # Broadcast to all")
 
 if __name__ == "__main__":
     main()
