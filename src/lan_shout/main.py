@@ -1,8 +1,8 @@
 import sys
 import argparse
 import socket
-from listener import start_listening
-from sender import send_message, broadcast_message
+from .listener import start_listening
+from .sender import send_message, broadcast_message
 
 def is_valid_ip(ip):
     """Simple check for valid IPv4 address."""

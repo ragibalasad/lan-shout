@@ -1,6 +1,6 @@
 import socket
 import threading
-from notifier import show_notification
+from .notifier import show_notification
 
 DEFAULT_PORT = 9999
 
